@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import validations from "../../utils/validations";
+import { SSE_LIGHT_GREEN } from "../../constants";
 const InputWrap = styled("div")`
   width: 100%;
   font-family: "Montserrat", sans-serif;
@@ -14,6 +15,8 @@ const StyledInput = styled("input")`
   font-size: 1.5rem;
   font-family: "Montserrat", sans-serif;
   padding: 0 0.8rem;
+  background: #fff;
+  border-bottom: 1px solid ${SSE_LIGHT_GREEN};
   @media (max-width: 992px) {
     font-size: 1.3rem;
   }

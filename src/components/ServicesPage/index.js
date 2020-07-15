@@ -5,6 +5,7 @@ import { CATEGORIES } from "../../constants";
 import NavBar from "../NavBar";
 import Header from "../Header";
 import IndividualService from "../IndividualService";
+import Form from "../Form";
 const Container = styled("div")`
   width: 100%;
   padding-top: 8.4rem;
@@ -19,6 +20,7 @@ export default class ServicesPage extends React.Component {
     super(props);
     this.state = {
       showNavmenu: false,
+      showForm: false,
     };
   }
 
@@ -32,6 +34,16 @@ export default class ServicesPage extends React.Component {
       showNavmenu: true,
     });
   };
+  openForm = () => {
+    this.setState({
+      showForm: true,
+    });
+  };
+  closeForm = () => {
+    this.setState({
+      showForm: false,
+    });
+  };
   render() {
     return (
       <Container>
@@ -42,7 +54,8 @@ export default class ServicesPage extends React.Component {
           closeNavMenu={this.closeNavMenu}
         />
         <Categories menus={CATEGORIES} />
-        <IndividualService />
+        <IndividualService openForm={this.openForm} />
+        {this.state.showForm && <Form closeForm={this.closeForm} />}
       </Container>
     );
   }
