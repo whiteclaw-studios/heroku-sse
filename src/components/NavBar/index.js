@@ -1,8 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "react-emotion";
-import { CloseIcon } from "../SpriteImage";
-import { WC_BLUE } from "../../constants";
+import { WC_BLUE, SSE_WHITE } from "../../constants";
 const NavWrap = styled("div")`
   padding: 0;
   @media (min-width: 993px) {
@@ -17,21 +16,22 @@ const NavWrap = styled("div")`
     padding-bottom: 130px;
     height: 100%;
     transition: transform 0.6s cubic-bezier(0.28, 0, 0.18, 1);
-    background: #ffffff;
+    background: ${SSE_WHITE};
     top: 0;
     transform: ${(props) =>
       props.isNavMenuVisible ? "translateX(0%)" : "translateX(-150%)"};
+    z-index: 10;
   }
 `;
 const CloseIconWrap = styled("div")`
-  height: 6.4rem;
+  height: 4.2rem;
   display: flex;
   align-items: center;
   padding-left: 1.6rem;
 `;
-// const CloseIcon = styled('span')`
-//   font-size: 2rem;
-// `;
+const CloseIcon = styled("span")`
+  font-size: 2rem;
+`;
 const ListItem = styled("li")`
   height: 5.2rem;
   border-bottom: 1px solid #000000;
@@ -39,45 +39,46 @@ const ListItem = styled("li")`
   display: flex;
   align-items: center;
   padding-left: 1.6rem;
+  font-size: 1.2rem;
+`;
+const Heading = styled("div")`
+  font-weight: bold;
+  font-size: 1.4rem;
+  margin-left: 2rem;
 `;
 export default class NavBar extends React.Component {
   constructMenus = () => {
-    const { menus, activeMenu, onMenuSelect = () => {} } = this.props;
-    const keys = Object.keys(menus);
-    return keys.map((k) => {
-      const { heading, hoverState } = menus[k];
-      const isActive = activeMenu.name === heading;
-      return (
-        <ListItem
-          id={heading}
-          key={heading}
-          onClick={() => onMenuSelect({ heading })}
-          className={
-            isActive || hoverState
-              ? css`
-                  color: ${WC_BLUE};
-                `
-              : ""
-          }
-        >
-          {heading}
-        </ListItem>
-      );
-    });
+    const { menus } = this.props;
+    return menus.map((m, index) => (
+      <ListItem
+        key={`nav-menu-${m.menu}-${index}`}
+        className={
+          index === menus.length - 1
+            ? css`
+                border: none;
+              `
+            : ""
+        }
+      >
+        {m.menu}
+      </ListItem>
+    ));
   };
   render() {
-    const { isNavMenuVisible = false, closeNavMenu = () => {} } = this.props;
+    const { isNavMenuVisible = true, closeNavMenu = () => {} } = this.props;
     return (
       <NavWrap isNavMenuVisible={isNavMenuVisible}>
         {/* close icon */}
         <CloseIconWrap>
           <CloseIcon
             className={css`
-              top: 13px;
               position: absolute;
             `}
             onClick={closeNavMenu}
-          />
+          >
+            X
+          </CloseIcon>
+          <Heading>Categories</Heading>
         </CloseIconWrap>
         {this.constructMenus()}
       </NavWrap>

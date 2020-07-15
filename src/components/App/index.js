@@ -4,8 +4,9 @@ import PropTypes from "prop-types";
 import { renderRoutes } from "react-router-config";
 import "../../../globalStyles";
 import Header from "../Header";
+import { SSE_GREY } from "../../constants";
 const Wrap = styled("div")`
-  background: #fff;
+  background: ${SSE_GREY};
   height: 100%;
 `;
 export default class App extends React.Component {
@@ -25,18 +26,18 @@ export default class App extends React.Component {
       isNavMenuVisible: false,
     });
   };
-  
+
   render() {
     const { route = {} } = this.props;
     const { isNavMenuVisible } = this.state;
     return (
       <Wrap>
-        <Header
+        {/* <Header
           {...this.props}
           showNavMenu={this.showNavMenu}
           closeNavMenu={this.closeNavMenu}
           isNavMenuVisible={isNavMenuVisible}
-        />
+        /> */}
         {renderRoutes(route.routes, { ...this.props })}
       </Wrap>
     );

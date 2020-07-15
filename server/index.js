@@ -7,7 +7,7 @@ import configureStore from "../src/configureStore.js";
 // import HomePage from '../Home/index.html'
 const server = express();
 server.get(
-  /^\/[a-zA-Z]+\.[js|svg|png|css|html]*[?a-zA-Z]+$/,
+  /^\/[a-zA-Z]+\.[js|svg|png|css|html|jpg|jpeg]*[?a-zA-Z]+$/,
   express.static(__dirname.slice(0, -6) + "public"), //for hosting in herokuapp needed slicing since __dirname differs
 );
 server.get(

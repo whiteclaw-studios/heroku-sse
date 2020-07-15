@@ -1,4 +1,5 @@
 import { injectGlobal } from "emotion";
+import { SSE_GREY } from "./src/constants";
 injectGlobal`
 html {
   font-size: 62.5%;
@@ -25,7 +26,7 @@ html {
     border: 0;
   }
   #root {
-    background-color: #ffffff;
+    background-color: ${SSE_GREY};
     min-height: 100%;
     min-width: 100%;
   }
