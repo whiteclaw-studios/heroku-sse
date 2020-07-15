@@ -37,6 +37,7 @@
     "babel-polyfill": "6.26.0",
     "body-parser": "^1.18.3",
     "connected-react-router": "^6.8.0",
+    "copy-webpack-plugin": "^6.0.3",
     "emotion": "^9.2.12",
     "emotion-server": "^9.2.12",
     "emotion-theming": "^9.2.9",
@@ -44,7 +45,6 @@
     "eslint-plugin-react": "^7.13.0",
     "express": "^4.16.4",
     "file-loader": "^4.3.0",
-    "html-webpack-plugin": "^4.3.0",
     "mongodb": "^3.2.3",
     "nodemon": "^1.19.0",
     "prop-types": "^15.7.2",
@@ -85,5 +85,8 @@
     "url-loader": "^2.0.1",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.2"
+  },
+  "peerDependencies": {
+    "webpack": "^4.37.0 || ^5.0.0"
   }
 }

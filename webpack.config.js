@@ -1,5 +1,5 @@
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   entry: "./src/index.js",
   output: {
@@ -42,11 +42,24 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.html$/i,
+        use: [
+          {
+            loader: "html-loader",
+          },
+        ],
+      },
     ],
   },
-  // plugins: [
-  //   new HtmlWebpackPlugin({
-  //     favicon: "./src/images/favicon.ico",
-  //   }),
-  // ],
+  plugins: [
+    // new HtmlWebpackPlugin({
+    //   // favicon: "./src/images/favicon.ico",
+    // }),
+    // new CopyPlugin({
+    //   patterns: [
+    //     { from: path.resolve(__dirname,'Home') },
+    //   ],
+    // }),
+  ],
 };
