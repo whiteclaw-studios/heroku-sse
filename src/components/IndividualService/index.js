@@ -83,6 +83,9 @@ const BookNow = styled("button")`
     width: 100%;
   }
 `;
+const PointLi = styled("li")`
+  margin: 1rem 0;
+`;
 export default class IndividualService extends React.Component {
   constructor(props) {
     super(props);
@@ -90,10 +93,17 @@ export default class IndividualService extends React.Component {
       hoveredOnButton: false,
     };
   }
+  constructPoints = (generalPoints) => {
+    return generalPoints.map((gp) => {
+      return <PointLi>{gp}</PointLi>;
+    });
+  };
   render() {
+    const { activeService } = this.props;
+    const { menu: heading, aboutContent, generalPoints = [] } = activeService;
     return (
       <Wrap>
-        <Heading>AC repair and service</Heading>
+        <Heading>{heading}</Heading>
         <Separator />
         <Row>
           <Column>
@@ -109,16 +119,8 @@ export default class IndividualService extends React.Component {
         <Separator />
         <GeneralContentWrap>
           <GeneralContent>
-            At Mr. Right, our goal is customer satisfaction, while offering high
-            quality professional repair services at a cost that’s affordable and
-            competitive. Whether your AC is not cooling or needs a detailed
-            servicing, Mr. Right provides quality workmanship through its
-            pan-India network of skilled and verified AC repair professionals.
-            Mr. Right offers a comprehensive range of AC repair services
-            including AC gas refilling, AC servicing, AC installation and
-            uninstallation, AC PCB repair, AC compressor repair, AC stabilizer
-            installation…...pretty much any kind of repair work required on your
-            AC.
+            {this.constructPoints(generalPoints)}
+            {aboutContent}
           </GeneralContent>
           <ButtonWrap>
             <BookNow

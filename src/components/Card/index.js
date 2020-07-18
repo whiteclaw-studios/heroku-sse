@@ -6,7 +6,9 @@ const Wrap = styled("div")`
   margin: 1.2rem;
   position: relative;
 `;
-const ImageWrap = styled("div")``;
+const ImageWrap = styled("div")`
+  min-width: 15rem;
+`;
 const Image = styled("img")`
   width: 100%;
   height: 100%;

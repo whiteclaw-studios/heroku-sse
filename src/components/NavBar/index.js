@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled, { css } from "react-emotion";
-import { WC_BLUE, SSE_WHITE } from "../../constants";
+import styled, { cx, css } from "react-emotion";
+import { WC_BLUE, SSE_WHITE, SSE_LIGHT_GREEN } from "../../constants";
 const NavWrap = styled("div")`
   padding: 0;
   @media (min-width: 993px) {
@@ -48,17 +48,23 @@ const Heading = styled("div")`
 `;
 export default class NavBar extends React.Component {
   constructMenus = () => {
-    const { menus } = this.props;
+    const { menus, activeMenu, onSelectMenu } = this.props;
     return menus.map((m, index) => (
       <ListItem
         key={`nav-menu-${m.menu}-${index}`}
-        className={
+        className={cx(
           index === menus.length - 1
             ? css`
                 border: none;
               `
-            : ""
-        }
+            : "",
+          activeMenu === index
+            ? css`
+                color: ${SSE_LIGHT_GREEN};
+              `
+            : "",
+        )}
+        onClick={() => onSelectMenu(index)}
       >
         {m.menu}
       </ListItem>

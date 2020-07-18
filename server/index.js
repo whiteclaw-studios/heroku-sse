@@ -4,8 +4,11 @@ import { createMemoryHistory } from "history";
 import Html from "./Html";
 import express from "express";
 import configureStore from "../src/configureStore.js";
+import bodyParser from "body-parser";
+import { mailArgsValidations } from "./mailArgValidations.js";
 // import HomePage from '../Home/index.html'
 const server = express();
+server.use(bodyParser());
 server.get(
   /^\/[a-zA-Z]+\.[js|svg|png|css|html|jpg|jpeg]*[?a-zA-Z]+$/,
   express.static(__dirname.slice(0, -6) + "public"), //for hosting in herokuapp needed slicing since __dirname differs
@@ -21,6 +24,20 @@ server.get("/", (req, res) => {
     res.write(data);
     res.end();
   });
+});
+server.post("/sendMail", (req, res) => {
+  const { body } = req;
+  console.log("req body", body);
+  const isValidArgs = mailArgsValidations(body);
+  if (!isValidArgs)
+    res.status(405).send({
+      code: false,
+      message: "Invalid body",
+    });
+  else
+    res
+      .status(200)
+      .send({ code: true, message: "Your request has been placed" });
 });
 server.get("*", (req, res) => {
   try {

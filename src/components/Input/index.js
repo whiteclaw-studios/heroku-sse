@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "react-emotion";
 import validations from "../../utils/validations";
-import { SSE_LIGHT_GREEN } from "../../constants";
+import { SSE_LIGHT_GREEN, SSE_RED } from "../../constants";
 const InputWrap = styled("div")`
   width: 100%;
   font-family: "Montserrat", sans-serif;
@@ -22,8 +22,8 @@ const StyledInput = styled("input")`
   }
 `;
 const ErrorSpan = styled("span")`
-  color: red;
-  font-size: 1.4rem;
+  color: ${SSE_RED};
+  font-size: 1.2rem;
   margin-top: 1.2rem;
   font-family: "Montserrat", sans-serif;
 `;
@@ -33,12 +33,15 @@ const Section1 = styled("div")`
 export default class Input extends React.Component {
   onValueChange = (event) => {
     const { name, value } = event.target;
-    const { onValueChange } = this.props;
+    const { onValueChange, allowIsEmpty = false } = this.props;
     const state = { ...this.props.state };
     if (onValueChange) {
       state.value = value;
       state.error = !validations.check(state);
       if (value.length > 0) state.dirty = true;
+      else if (allowIsEmpty) {
+        state.error = false;
+      }
       onValueChange({
         [name]: state,
       });

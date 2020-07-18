@@ -21,6 +21,7 @@ export default class ServicesPage extends React.Component {
     this.state = {
       showNavmenu: false,
       showForm: false,
+      activeMenu: 0,
     };
   }
 
@@ -44,6 +45,11 @@ export default class ServicesPage extends React.Component {
       showForm: false,
     });
   };
+  onSelectMenu = (index) => {
+    this.setState({
+      activeMenu: index,
+    });
+  };
   render() {
     return (
       <Container>
@@ -52,9 +58,18 @@ export default class ServicesPage extends React.Component {
           menus={CATEGORIES}
           isNavMenuVisible={this.state.showNavmenu}
           closeNavMenu={this.closeNavMenu}
+          activeMenu={this.state.activeMenu}
+          onSelectMenu={this.onSelectMenu}
         />
-        <Categories menus={CATEGORIES} />
-        <IndividualService openForm={this.openForm} />
+        <Categories
+          menus={CATEGORIES}
+          activeMenu={this.state.activeMenu}
+          onSelectMenu={this.onSelectMenu}
+        />
+        <IndividualService
+          openForm={this.openForm}
+          activeService={CATEGORIES[this.state.activeMenu]}
+        />
         {this.state.showForm && <Form closeForm={this.closeForm} />}
       </Container>
     );

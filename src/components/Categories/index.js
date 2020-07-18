@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { css } from "react-emotion";
-import { SSE_WHITE, SSE_GREY } from "../../constants";
+import styled, { css, cx } from "react-emotion";
+import { SSE_WHITE, SSE_GREY, SSE_LIGHT_GREEN } from "../../constants";
 const Wrap = styled("div")`
   @media (max-width: 992px) {
     display: none;
@@ -23,28 +23,36 @@ const Wrap = styled("div")`
 const Heading = styled("div")`
   font-weight: bold;
   font-size: 1.6rem;
+  margin-bottom: 1.2rem;
 `;
 const List = styled("div")`
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 `;
 const Item = styled("li")`
   padding: 1.2rem 0;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   border-bottom: 0.5px solid ${SSE_GREY};
 `;
-function Categories({ menus }) {
+function Categories({ menus, activeMenu, onSelectMenu }) {
   const constructItems = () => {
     return menus.map((m, index) => (
       <Item
         key={`fixed-menu-${m.menu}-${index}`}
-        className={
+        className={cx(
           index === menus.length - 1
             ? css`
                 border: none;
               `
-            : ""
-        }
+            : "",
+          activeMenu === index
+            ? css`
+                color: ${SSE_LIGHT_GREEN};
+              `
+            : "",
+        )}
+        onClick={() => onSelectMenu(index)}
       >
         {m.menu}
       </Item>
