@@ -6,6 +6,7 @@ import express from "express";
 import configureStore from "../src/configureStore.js";
 import bodyParser from "body-parser";
 import { mailArgsValidations } from "./mailArgValidations.js";
+import { sendEmail } from "./helpers";
 // import HomePage from '../Home/index.html'
 const server = express();
 server.use(bodyParser());
@@ -25,19 +26,34 @@ server.get("/", (req, res) => {
     res.end();
   });
 });
-server.post("/sendMail", (req, res) => {
-  const { body } = req;
-  console.log("req body", body);
-  const isValidArgs = mailArgsValidations(body);
-  if (!isValidArgs)
-    res.status(405).send({
-      code: false,
-      message: "Invalid body",
-    });
-  else
-    res
-      .status(200)
-      .send({ code: true, message: "Your request has been placed" });
+
+server.post("/sendMail", async (req, res) => {
+  try {
+    const { body } = req;
+    const isValidArgs = mailArgsValidations(body);
+    if (!isValidArgs)
+      res.status(405).send({
+        code: false,
+        message: "Invalid body",
+      });
+    else {
+      const { email, name, address, mobile } = body;
+      const emailArgs = {
+        ...(email && { email }),
+        ...(name && { name }),
+        ...(mobile && { mobile }),
+        ...(address && { address }),
+      };
+      await sendEmail(emailArgs);
+
+      res
+        .status(200)
+        .send({ code: true, message: "Your request has been placed" });
+    }
+  } catch (err) {
+    console.error("Caught in sending email", err);
+    res.status(405).send({ code: false, message: "Please try again" });
+  }
 });
 server.get("*", (req, res) => {
   try {

@@ -3,6 +3,7 @@ import styled, { css } from "react-emotion";
 import Modal from "../Modal";
 import Input from "../Input";
 import requestWrapper from "../../utils/requestWrapper";
+import { get } from "../../utils/helpers";
 import {
   SSE_LIGHT_GREEN,
   SSE_WHITE,
@@ -152,14 +153,7 @@ export default class Form extends React.Component {
         },
       });
     }
-    console.log(
-      "------",
-      !flag,
-      !email.error,
-      !name.error,
-      !mobile.error,
-      !address.error,
-    );
+
     if (
       !flag &&
       !email.error &&
@@ -178,6 +172,10 @@ export default class Form extends React.Component {
         },
       }).then((res) => {
         console.log("res", res);
+        const code = get(res, "data.code", false);
+        const message = get(res, "data.message", false);
+        if (code) this.props.showToaster(message, false, "Success");
+        else this.props.showToaster(message, true, "Failure");
       });
     }
   };

@@ -1,4 +1,4 @@
 export const EMAIL = /^[\w\-\.\+]+\@[a-zA-Z0-9\.\-]*[^\.]\.[a-zA-z0-9]+$/;
 export const PASSWORD = /^.{6,}$/;
 export const MOBILE = /^[0-9]{10}$/;
-export const NAME = /^[a-zA-z]{3,}$/;
+export const NAME = /^[a-zA-z\ ]{3,}$/;
