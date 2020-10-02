@@ -48,7 +48,7 @@ const Heading = styled("div")`
 `;
 export default class NavBar extends React.Component {
   constructMenus = () => {
-    const { menus, activeMenu, onSelectMenu } = this.props;
+    const { menus, activeMenu, onSelectMenu, closeNavMenu } = this.props;
     return menus.map((m, index) => (
       <ListItem
         key={`nav-menu-${m.menu}-${index}`}
@@ -64,7 +64,10 @@ export default class NavBar extends React.Component {
               `
             : "",
         )}
-        onClick={() => onSelectMenu(index)}
+        onClick={() => {
+          onSelectMenu(index);
+          closeNavMenu();
+        }}
       >
         {m.menu}
       </ListItem>

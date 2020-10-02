@@ -1,13 +1,24 @@
 import React from "react";
-import styled from "react-emotion";
-import testImage from "../../images/testImage.jpg";
+import styled, { css } from "react-emotion";
 import { SSE_WHITE, SSE_BLUE } from "../../constants";
 const Wrap = styled("div")`
   margin: 1.2rem;
   position: relative;
+  border: 1px solid #e9e9e9;
+  background: #f9f9fa;
 `;
 const ImageWrap = styled("div")`
-  min-width: 15rem;
+  min-width: 25rem;
+  height: 20rem;
+  @media (max-width: 992px) {
+    min-width: 15rem;
+  }
+  ${(props) =>
+    props.type === "BIG" &&
+    css`
+      min-width: 30rem;
+      height: 30rem;
+    `}
 `;
 const Image = styled("img")`
   width: 100%;
@@ -33,18 +44,18 @@ const Price = styled("span")`
   font-size: 1.2rem;
   position: absolute;
   bottom: 2.5rem;
-  color: ${SSE_WHITE};
+  color: #000;
   left: 0.5rem;
 `;
-function Card() {
+function Card({ imageUrl, type = "SMALL" }) {
   return (
     <Wrap>
-      <ImageWrap>
-        <Image src={testImage} />
+      <ImageWrap type={type}>
+        <Image src={imageUrl} />
       </ImageWrap>
       <DataWrap>
         <Tag>Most booked</Tag>
-        <Price>Service starting from $4</Price>
+        {/* <Price>Service starting from $4</Price> */}
       </DataWrap>
     </Wrap>
   );

@@ -85,6 +85,7 @@ const BookNow = styled("button")`
 `;
 const PointLi = styled("li")`
   margin: 1rem 0;
+  list-style-type: circle;
 `;
 export default class IndividualService extends React.Component {
   constructor(props) {
@@ -100,20 +101,25 @@ export default class IndividualService extends React.Component {
   };
   render() {
     const { activeService } = this.props;
-    const { menu: heading, aboutContent, generalPoints = [] } = activeService;
+    const {
+      menu: heading,
+      aboutContent,
+      generalPoints = [],
+      images = [],
+    } = activeService;
     return (
       <Wrap>
         <Heading>{heading}</Heading>
         <Separator />
         <Row>
           <Column>
-            <Card />
-            <Card />
+            <Card imageUrl={images[0]} type="BIG" />
+            <Card imageUrl={images[1]} type="BIG" />
           </Column>
           <Column>
-            <Card />
-            <Card />
-            <Card />
+            <Card imageUrl={images[2]} />
+            <Card imageUrl={images[3]} />
+            <Card imageUrl={images[4]} />
           </Column>
         </Row>
         <Separator />
