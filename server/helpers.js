@@ -5,8 +5,8 @@ export const sendEmail = async ({ email, name, mobile, address } = {}) => {
   let transporter = nodeMailer.createTransport({
     service: "gmail",
     auth: {
-      user: "whiteclawstudios@gmail.com",
-      pass: "wcstudios",
+      user: "akgroupdesk@gmail.com",
+      pass: "arish420",
     },
   });
   // please turn on allow less secure apps in your gmail setting

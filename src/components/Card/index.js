@@ -16,8 +16,12 @@ const ImageWrap = styled("div")`
   ${(props) =>
     props.type === "BIG" &&
     css`
-      min-width: 30rem;
+      min-width: 35rem;
       height: 30rem;
+      @media (max-width: 992px) {
+        min-width: 18rem;
+        height: 25rem;
+      }
     `}
 `;
 const Image = styled("img")`
